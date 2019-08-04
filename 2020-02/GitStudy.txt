@@ -1,0 +1,82 @@
+GIT 学习整理
+1、Git是分布式版本控制系统
+2、Git安装成功后信息注册：
+    $ git config --global user.name "Your Name"
+    $ git config --global user.email "email@example.com"
+3、创建版本库
+    $ mkdir learngit
+    切换到对应目录下
+    $ git init
+4、添加文件到版本库
+    $ git add readme.txt
+    $ git commit -m "add a new file"
+5、查看当前库状态
+    $git status
+6、查看文件具体的修改内容
+    $git diff readme.txt
+7、查看提交历史
+    $ git log
+8、查看提交命令历史
+    $ git reflog
+9、回退到上一个版本
+    $ git reset --hard HEAD^
+    上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100
+10、回退到指定版本    
+    $ git reset --hard 1094a
+    本号没必要写全，前几位就可以了，Git会自动去找
+11、工作区、暂存区和版本库
+    git与其他版本控制系统的不同之处就是有暂存区的概念，工作区就是电脑中能看到的目录，工作区有一个隐藏目录[.git]，这是git的版本库。版本库里有许多东西，最重要的是称为stage的暂存区。
+
+
+
+    将文件往版本库里添加时是分两步执行的:
+
+    第一步是用`git add`把文件添加进去，实际上就是把文件修改添加到暂存区。
+    第二步是用`git commit`提交修改，实际上就是把暂存区的所有内容提交到当前分支。
+    Git是如何跟踪修改的，每次修改，如果不用git add到暂存区，那就不会加入到commit中。
+12、撤销修改
+    撤销工作区修改   $ git checkout --readme.txt
+    撤销缓存区修改   
+        $ git reset HEAD readme.txt 
+        $ git checkout --readme.txt
+13、删除文件
+    $ git rm <file>
+    当你要删除文件text.txt的时候，可以采用命令：rm test.txt 这个时候有两种情况：
+    第一种情况:确实要把test.txt删掉，那么可以执行 
+        $ git rm test.txt 
+        $ git commit -m "remove test.txt" 
+        此时文件被删除，且删除记录上传本地库。
+    第二种情况:误删文件，想恢复，这时候还没有commit -m "remove test.txt"，执行
+        git checkout test.txt
+        将文件恢复。
+    如果执行完git commit -m "remove test.txt"后就不能用checkout恢复了，得用git reset --hard HEAD^，再从版本库写回到工作区。
+14、远程仓库创建ssh key
+    $ ssh-keygen -t rsa -C "youremail@example.com"
+    用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件
+15、关联远程仓库
+    $ git remote add origin https://github.com/username/repositoryname.git
+16、推送到远程仓库
+    $ git push -u origin master
+17、从远程仓库克隆
+    方式1：$ git clone https://github.com/usern/repositoryname.git
+    方式2：$ git clone git@github.com:1150194167/gitTest.git
+    克隆后会在本机生成一个目录，在新目录下新增文件，add、commit、push到远程仓库
+18、创建分支
+    $ git checkout -b dev
+19、查看当前分支名称
+    $ git branch
+    列出所有分支，当前分支前面会标一个*号
+20、切换分支
+    $ git checkout master
+21、合并某分支到当前分支
+    $ git merge dev
+22、删除分支
+    $ git branch -d dev
+23、查看分支合并图
+    $ git log --graph
+24、保存工作现场
+    $ git stash  
+25、查看工作现场
+    $ git stash list
+26、恢复工作现场
+    $ git stash pop
